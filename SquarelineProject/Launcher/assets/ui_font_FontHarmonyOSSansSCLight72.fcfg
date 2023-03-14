@@ -1,0 +1,16 @@
+{
+  "codename": "FontHarmonyOSSansSCLight72",
+  "ttf_path": "\\assets\\HarmonyOS_Sans_SC_Light.ttf",
+  "bin_path": "\\assets\\ui_font_FontHarmonyOSSansSCLight72.bin",
+  "c_path": "\\assets\\ui_font_FontHarmonyOSSansSCLight72.c",
+  "cfg_path": "\\assets\\ui_font_FontHarmonyOSSansSCLight72.fcfg",
+  "size": 72,
+  "bpp": 8,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}

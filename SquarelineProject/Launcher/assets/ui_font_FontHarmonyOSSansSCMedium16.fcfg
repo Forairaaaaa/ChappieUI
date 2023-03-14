@@ -1,0 +1,16 @@
+{
+  "codename": "FontHarmonyOSSansSCMedium16",
+  "ttf_path": "\\assets\\HarmonyOS_Sans_SC_Medium.ttf",
+  "bin_path": "\\assets\\ui_font_FontHarmonyOSSansSCMedium16.bin",
+  "c_path": "\\assets\\ui_font_FontHarmonyOSSansSCMedium16.c",
+  "cfg_path": "\\assets\\ui_font_FontHarmonyOSSansSCMedium16.fcfg",
+  "size": 16,
+  "bpp": 8,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}
