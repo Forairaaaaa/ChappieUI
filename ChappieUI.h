@@ -20,8 +20,6 @@ class CHAPPIEUI {
         CHAPPIE* _device;
         App_Launcher* _launcher;
 
-        void startup();
-
     public:
         CHAPPIEUI() : _inited(false) {}
         ~CHAPPIEUI() {}
@@ -31,6 +29,12 @@ class CHAPPIEUI {
          * 
          */
         int begin();
+        
+        /**
+         * @brief Put it into loop
+         * 
+         */
+        void update();
         
         /* Get device bsp pointor */
         inline CHAPPIE* device() { return _device; }

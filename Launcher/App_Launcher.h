@@ -10,17 +10,18 @@
  */
 #pragma once
 #include "../Apps/AppList.h"
+#include "../../ChappieBsp/Chappie.h"
 
 class App_Launcher {
     private:
+        /* BSP pointer to access hardware functions */
+        CHAPPIE* _device;
 
     public:
-        /**
-         * @brief Play startup animation
-         * 
-         */
-        void onStartup();
+        inline App_Launcher(CHAPPIE* device) { _device = device; }
+
         void onCreate();
+        void onLoop();
         void onDestroy();
 };
 

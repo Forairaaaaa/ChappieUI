@@ -17,7 +17,7 @@ int CHAPPIEUI::begin()
         UI_LOG("[ChappieUI] already inited\n");
         return -1;
     }
-        
+    
     /* Create bsp */
     _device = new CHAPPIE;
     if (_device == NULL) {
@@ -26,7 +26,7 @@ int CHAPPIEUI::begin()
     }
     
     /* Create launcher */
-    _launcher = new App_Launcher;
+    _launcher = new App_Launcher(_device);
     if (_device == NULL) {
         UI_LOG("[ChappieUI] Launcher create failed\n");
         return -1;
@@ -41,24 +41,14 @@ int CHAPPIEUI::begin()
     _device->lvgl.init(&_device->Lcd, &_device->Tp);
 
     /* Start launcher */
-    startup();
+    _launcher->onCreate();
 
     return 0;
 }
 
 
-void CHAPPIEUI::startup()
+void CHAPPIEUI::update()
 {
-    /* Play startup animation */
-    _device->lvgl.disable();
-    _launcher->onStartup();
-    _device->lvgl.enable();
-    delay(1500);
-
-    /* Into launcher */
-    _device->lvgl.disable();
-    _launcher->onCreate();
-    _device->lvgl.enable();
+    _launcher->onLoop();
 }
-
 
