@@ -41,6 +41,9 @@ void AppIconClicked(lv_event_t * e);
 
 LV_IMG_DECLARE(ui_img_pic_startupbottom_png);    // assets\Pic_StartupBottom.png
 LV_IMG_DECLARE(ui_img_pic_statebar_png);    // assets\Pic_StateBar.png
+LV_IMG_DECLARE(ui_img_pic_appicon_watch_png);    // assets\Pic_AppIcon_Watch.png
+LV_IMG_DECLARE(ui_img_pic_appicon_default_png);    // assets\Pic_AppIcon_Default.png
+LV_IMG_DECLARE(ui_img_pic_appicon_games_png);    // assets\Pic_AppIcon_Games.png
 LV_IMG_DECLARE(ui_img_pic_appicon_settings_png);    // assets\Pic_AppIcon_Settings.png
 
 

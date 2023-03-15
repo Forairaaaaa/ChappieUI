@@ -44,10 +44,10 @@ void AppIconPopout_Animation(lv_obj_t * TargetObject, int delay)
 {
     lv_anim_t PropertyAnimation_0;
     lv_anim_init(&PropertyAnimation_0);
-    lv_anim_set_time(&PropertyAnimation_0, 100);
+    lv_anim_set_time(&PropertyAnimation_0, 200);
     lv_anim_set_user_data(&PropertyAnimation_0, TargetObject);
     lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_image_zoom);
-    lv_anim_set_values(&PropertyAnimation_0, 100, 255);
+    lv_anim_set_values(&PropertyAnimation_0, 200, 255);
     lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_overshoot);
     lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
     lv_anim_set_playback_time(&PropertyAnimation_0, 0);
@@ -66,7 +66,7 @@ void LogoDropdown_Animation(lv_obj_t * TargetObject, int delay)
     lv_anim_set_user_data(&PropertyAnimation_0, TargetObject);
     lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y);
     lv_anim_set_values(&PropertyAnimation_0, -168, -28);
-    lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_bounce);
+    lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_ease_out);
     lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
     lv_anim_set_playback_time(&PropertyAnimation_0, 0);
     lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
@@ -305,7 +305,7 @@ void ui_ScreenLauncher_screen_init(void)
                                LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_RollerAppList = lv_roller_create(ui_ScreenLauncher);
-    lv_roller_set_options(ui_RollerAppList, "Settings\nController\nGames", LV_ROLLER_MODE_NORMAL);
+    lv_roller_set_options(ui_RollerAppList, "Watch\nSettings\nGames", LV_ROLLER_MODE_NORMAL);
     lv_obj_set_height(ui_RollerAppList, 160);
     lv_obj_set_width(ui_RollerAppList, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_x(ui_RollerAppList, 78);
@@ -334,7 +334,7 @@ void ui_ScreenLauncher_screen_init(void)
     lv_obj_set_style_bg_opa(ui_RollerAppList, 255, LV_PART_SELECTED | LV_STATE_DEFAULT);
 
     ui_ImageAppIcon = lv_img_create(ui_ScreenLauncher);
-    lv_img_set_src(ui_ImageAppIcon, &ui_img_pic_appicon_settings_png);
+    lv_img_set_src(ui_ImageAppIcon, &ui_img_pic_appicon_watch_png);
     lv_obj_set_width(ui_ImageAppIcon, LV_SIZE_CONTENT);   /// 160
     lv_obj_set_height(ui_ImageAppIcon, LV_SIZE_CONTENT);    /// 200
     lv_obj_set_x(ui_ImageAppIcon, -52);

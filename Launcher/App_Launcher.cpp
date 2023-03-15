@@ -12,13 +12,34 @@
 #include "UI/ui.h"
 
 
+
+void App_Launcher::state_bar_update(lv_timer_t * timer)
+{
+    CHAPPIE* device = (CHAPPIE*)timer->user_data;
+
+    static char label_buffer[10];
+
+    /* Update clock */
+    static I2C_BM8563_TimeTypeDef rtc_time;
+    device->Rtc.getTime(&rtc_time);
+    // snprintf(label_buffer, 10, "%d:%0d:%0d", rtc_time.hours, rtc_time.minutes, rtc_time.seconds);
+    snprintf(label_buffer, 10, "%d:%0d", rtc_time.hours, rtc_time.minutes);
+    lv_label_set_text(ui_LabelStateBarClock, label_buffer);
+
+    /* Update battery */
+    static float battery;
+    battery = device->Pow.readBatVoltage();
+    snprintf(label_buffer, 10, "%.2fV", battery);
+    lv_label_set_text(ui_LabelStateBarBattery, label_buffer);
+
+}
+
+
 void App_Launcher::onCreate()
 {
     _device->lvgl.disable();
-
     /* Init UI */
     ui_init();
-
     /* Play startup Logo animation */
     LogoBottomUp_Animation(ui_ImageLogoBottom, 0);
     LogoDropdown_Animation(ui_LabelLogo0, 50 * 0);
@@ -28,37 +49,41 @@ void App_Launcher::onCreate()
     LogoDropdown_Animation(ui_LabelLogo4, 50 * 4);
     LogoDropdown_Animation(ui_LabelLogo5, 50 * 5);
     LogoDropdown_Animation(ui_LabelLogo6, 50 * 6);
-
     _device->lvgl.enable();
 
     /* Wait until animation finish */
     delay(1500);
 
-    _device->lvgl.disable();
-
     /* Into launcher */
+    _device->lvgl.disable();
     lv_scr_load_anim(ui_ScreenLauncher, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 200, 0, true);
-    
     _device->lvgl.enable();
+
+    /* Create a timer to update state bar */
+    _state_bar_update_timer = lv_timer_create(state_bar_update, 1000, (void*)_device);
 }
 
 
 void App_Launcher::onLoop()
 {
-    delay(1000);
 
     if (_device->Button.A.pressed()) {
         esp_restart();
     }
 
-    I2C_BM8563_TimeTypeDef shit;
-    _device->Rtc.getTime(&shit);
+    delay(500);
+
+    printf("%s\n", ChappieUIApp::AppRegister[0].appName().c_str());
+    ChappieUIApp::AppRegister[0].onCreate();
+    ChappieUIApp::AppRegister[0].onDestroy();
 
 }
 
 
 void App_Launcher::onDestroy()
 {
+    /* Delete timer */
+    lv_timer_del(_state_bar_update_timer);
 }
 
 

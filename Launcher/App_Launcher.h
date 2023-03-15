@@ -9,13 +9,17 @@
  * 
  */
 #pragma once
-#include "../Apps/AppList.h"
+#include "../Apps/AppRegister.h"
 #include "../../ChappieBsp/Chappie.h"
 
 class App_Launcher {
     private:
         /* BSP pointer to access hardware functions */
         CHAPPIE* _device;
+
+        lv_timer_t* _state_bar_update_timer;
+
+        static void state_bar_update(lv_timer_t * timer);
 
     public:
         inline App_Launcher(CHAPPIE* device) { _device = device; }
