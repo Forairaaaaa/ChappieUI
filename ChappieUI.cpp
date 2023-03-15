@@ -10,3 +10,55 @@
  */
 #include "ChappieUI.h"
 
+
+int CHAPPIEUI::begin()
+{
+    if (_inited) {
+        UI_LOG("[ChappieUI] already inited\n");
+        return -1;
+    }
+        
+    /* Create bsp */
+    _device = new CHAPPIE;
+    if (_device == NULL) {
+        UI_LOG("[ChappieUI] bsp create failed\n");
+        return -1;
+    }
+    
+    /* Create launcher */
+    _launcher = new App_Launcher;
+    if (_device == NULL) {
+        UI_LOG("[ChappieUI] Launcher create failed\n");
+        return -1;
+    }
+
+    _inited = true;
+    
+    /* Init device */
+    _device->init();
+
+    /* Init lvgl */
+    _device->lvgl.init(&_device->Lcd, &_device->Tp);
+
+    /* Start launcher */
+    startup();
+
+    return 0;
+}
+
+
+void CHAPPIEUI::startup()
+{
+    /* Play startup animation */
+    _device->lvgl.disable();
+    _launcher->onStartup();
+    _device->lvgl.enable();
+    delay(1500);
+
+    /* Into launcher */
+    _device->lvgl.disable();
+    _launcher->onCreate();
+    _device->lvgl.enable();
+}
+
+
