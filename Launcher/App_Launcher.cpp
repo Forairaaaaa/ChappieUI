@@ -100,16 +100,33 @@ namespace App {
 }
 
 
+
 /* Events handlers */
 void AppListValueChanged(lv_event_t * e)
 {
-    
+    static uint16_t _last_value;
+    static uint16_t _current_value;
+    static lv_img_dsc_t* _current_app_icon;
+
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t * obj = lv_event_get_target(e);
+
+    if(code == LV_EVENT_VALUE_CHANGED) {
+        _current_value = lv_roller_get_selected(obj);
+        
+        _current_app_icon = (lv_img_dsc_t*)App::Register[_current_value].appIcon();
+        if (_current_app_icon == NULL) {
+            _current_app_icon = &ui_img_pic_appicon_default_png;
+        }
+        
+        
+    }
 }
 
 
 void AppIconClicked(lv_event_t * e)
 {
-    AppIconFadeaway_Animation(ui_ImageAppIcon, 0);
-    AppIconFadeIn_Animation(ui_ImageAppIcon, 10);
+    // AppIconFadeaway_Animation(ui_ImageAppIcon, 0);
+    // AppIconFadeIn_Animation(ui_ImageAppIcon, 10);
     AppIconPopout_Animation(ui_ImageAppIcon, 10);
 }
