@@ -76,6 +76,7 @@ namespace App {
         printf("%s\n", App::Register[0].appName().c_str());
         App::Register[0].onCreate();
         App::Register[0].onDestroy();
+        App::Register[0].onLoop();
 
     }
 

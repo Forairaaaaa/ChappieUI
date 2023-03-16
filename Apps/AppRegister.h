@@ -9,16 +9,39 @@
  * 
  */
 #pragma once
-#include "AppRegisterType.h"
+#include "AppTypedef.h"
 
-#include "App_Test/App_Test.h"
+/**
+ *  ---------- How to regiter a App ----------
+ * 
+ *  1. Include your App's header file in 1)
+ *      e.g. #include "App_Demo/App_Demo.h"
+ *  2. Log your App into AppRegister in 2)
+ *      e.g. App_Login(Demo),
+ * 
+ * -------------------------------------------
+ */
+
+
+/**
+ * @brief 1) Include your App's header file
+ * 
+ */
+#include "App_Demo/App_Demo.h"
+
 
 
 namespace App {
     
     static AppRegister_t Register[] = {
+        
+        /**
+         * @brief 2) Log your App into AppRegister here
+         * 
+         */
+        App_Login(Demo),
 
-        App_Test,
+
 
     };
 }
