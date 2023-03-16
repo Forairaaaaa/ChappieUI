@@ -1,5 +1,5 @@
 /**
- * @file App_Demo.cpp
+ * @file App_Settings.cpp
  * @author Forairaaaaa
  * @brief 
  * @version 0.1
@@ -8,11 +8,11 @@
  * @copyright Copyright (c) 2023
  * 
  */
-#include "App_Demo.h"
+#include "App_Settings.h"
 #include <Arduino.h>
 
 
-static std::string _app_name = "Demo";
+static std::string _app_name = "Settings";
 
 
 namespace App {
@@ -22,7 +22,7 @@ namespace App {
      * 
      * @return std::string 
      */
-    std::string App_Demo_appName()
+    std::string App_Settings_appName()
     {
         return _app_name;
     }
@@ -33,7 +33,7 @@ namespace App {
      * 
      * @return void* 
      */
-    void* App_Demo_appIcon()
+    void* App_Settings_appIcon()
     {
         return NULL;
     }
@@ -43,9 +43,9 @@ namespace App {
      * @brief Called when App is on create
      * 
      */
-    void App_Demo_onCreate()
+    void App_Settings_onCreate()
     {
-        UI_LOG("[%s] oncreste\n", App_Demo_appName().c_str());
+        UI_LOG("[%s] oncreste\n", App_Settings_appName().c_str());
     }
 
 
@@ -53,7 +53,7 @@ namespace App {
      * @brief Called in loop
      * 
      */
-    void App_Demo_onLoop()
+    void App_Settings_onLoop()
     {
 
     }
@@ -63,9 +63,9 @@ namespace App {
      * @brief Called when App is on destroy
      * 
      */
-    void App_Demo_onDestroy()
+    void App_Settings_onDestroy()
     {
-        UI_LOG("[%s] onDestroy\n", App_Demo_appName().c_str());
+        UI_LOG("[%s] onDestroy\n", App_Settings_appName().c_str());
     }
 
 }

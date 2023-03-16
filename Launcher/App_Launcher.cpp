@@ -37,8 +37,8 @@ namespace App {
 
     void App_Launcher::onCreate()
     {
-        _device->lvgl.disable();
         /* Init UI */
+        _device->lvgl.disable();
         ui_init();
         /* Play startup Logo animation */
         LogoBottomUp_Animation(ui_ImageLogoBottom, 0);
@@ -50,17 +50,27 @@ namespace App {
         LogoDropdown_Animation(ui_LabelLogo5, 50 * 5);
         LogoDropdown_Animation(ui_LabelLogo6, 50 * 6);
         _device->lvgl.enable();
-
         /* Wait until animation finish */
-        delay(1500);
+        delay(1000);
 
         /* Into launcher */
         _device->lvgl.disable();
         lv_scr_load_anim(ui_ScreenLauncher, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 200, 0, true);
-        _device->lvgl.enable();
+
+        /* Read App register */
+        _app_num = sizeof(App::Register) / sizeof(AppRegister_t);
+        std::string apps_name_buffer = "";
+        for (int i = 0; i < _app_num; i++) {
+            apps_name_buffer += App::Register[i].appName();
+            if (i != (_app_num - 1))
+                apps_name_buffer += "\n";
+        }
+        /* Update App list to roller */
+        lv_roller_set_options(ui_RollerAppList, apps_name_buffer.c_str(), LV_ROLLER_MODE_NORMAL);
 
         /* Create a timer to update state bar */
         _state_bar_update_timer = lv_timer_create(state_bar_update, 1000, (void*)_device);
+        _device->lvgl.enable();
     }
 
 

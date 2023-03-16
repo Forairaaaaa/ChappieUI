@@ -20,8 +20,9 @@ namespace App {
             /* BSP pointer to access hardware functions */
             CHAPPIE* _device;
 
-            lv_timer_t* _state_bar_update_timer;
+            int _app_num;
 
+            lv_timer_t* _state_bar_update_timer;
             static void state_bar_update(lv_timer_t * timer);
 
         public:

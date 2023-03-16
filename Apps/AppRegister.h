@@ -28,7 +28,7 @@
  * 
  */
 #include "App_Demo/App_Demo.h"
-
+#include "App_Settings/App_Settings.h"
 
 
 namespace App {
@@ -40,7 +40,7 @@ namespace App {
          * 
          */
         App_Login(Demo),
-
+        App_Login(Settings),
 
 
     };
