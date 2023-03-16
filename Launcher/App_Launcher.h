@@ -20,13 +20,14 @@ namespace App {
             /* BSP pointer to access hardware functions */
             CHAPPIE* _device;
 
-            int _app_num;
-
             lv_timer_t* _state_bar_update_timer;
             static void state_bar_update(lv_timer_t * timer);
 
         public:
-            inline App_Launcher(CHAPPIE* device) { _device = device; }
+            inline App_Launcher(CHAPPIE* device)
+            {
+                _device = device;
+            }
 
             void onCreate();
             void onLoop();

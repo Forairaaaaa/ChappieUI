@@ -8,20 +8,9 @@
 
 ///////////////////// VARIABLES ////////////////////
 void AppIconPopout_Animation(lv_obj_t * TargetObject, int delay);
-void LogoDropdown_Animation(lv_obj_t * TargetObject, int delay);
-void LogoBottomUp_Animation(lv_obj_t * TargetObject, int delay);
 void AppIconClicked_Animation(lv_obj_t * TargetObject, int delay);
 void AppIconFadeaway_Animation(lv_obj_t * TargetObject, int delay);
 void AppIconFadeIn_Animation(lv_obj_t * TargetObject, int delay);
-lv_obj_t * ui_ScreenStartup;
-lv_obj_t * ui_LabelLogo0;
-lv_obj_t * ui_LabelLogo1;
-lv_obj_t * ui_LabelLogo2;
-lv_obj_t * ui_LabelLogo3;
-lv_obj_t * ui_LabelLogo4;
-lv_obj_t * ui_LabelLogo5;
-lv_obj_t * ui_LabelLogo6;
-lv_obj_t * ui_ImageLogoBottom;
 lv_obj_t * ui_ScreenLauncher;
 lv_obj_t * ui_ImageStateBar;
 lv_obj_t * ui_LabelStateBarClock;
@@ -44,47 +33,11 @@ void AppIconPopout_Animation(lv_obj_t * TargetObject, int delay)
 {
     lv_anim_t PropertyAnimation_0;
     lv_anim_init(&PropertyAnimation_0);
-    lv_anim_set_time(&PropertyAnimation_0, 200);
+    lv_anim_set_time(&PropertyAnimation_0, 100);
     lv_anim_set_user_data(&PropertyAnimation_0, TargetObject);
     lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_image_zoom);
-    lv_anim_set_values(&PropertyAnimation_0, 200, 255);
+    lv_anim_set_values(&PropertyAnimation_0, 100, 255);
     lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_overshoot);
-    lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
-    lv_anim_set_playback_time(&PropertyAnimation_0, 0);
-    lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
-    lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
-    lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
-    lv_anim_set_early_apply(&PropertyAnimation_0, false);
-    lv_anim_start(&PropertyAnimation_0);
-
-}
-void LogoDropdown_Animation(lv_obj_t * TargetObject, int delay)
-{
-    lv_anim_t PropertyAnimation_0;
-    lv_anim_init(&PropertyAnimation_0);
-    lv_anim_set_time(&PropertyAnimation_0, 300);
-    lv_anim_set_user_data(&PropertyAnimation_0, TargetObject);
-    lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y);
-    lv_anim_set_values(&PropertyAnimation_0, -168, -28);
-    lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_ease_out);
-    lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
-    lv_anim_set_playback_time(&PropertyAnimation_0, 0);
-    lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
-    lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
-    lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
-    lv_anim_set_early_apply(&PropertyAnimation_0, false);
-    lv_anim_start(&PropertyAnimation_0);
-
-}
-void LogoBottomUp_Animation(lv_obj_t * TargetObject, int delay)
-{
-    lv_anim_t PropertyAnimation_0;
-    lv_anim_init(&PropertyAnimation_0);
-    lv_anim_set_time(&PropertyAnimation_0, 300);
-    lv_anim_set_user_data(&PropertyAnimation_0, TargetObject);
-    lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y);
-    lv_anim_set_values(&PropertyAnimation_0, 200, 63);
-    lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_ease_out);
     lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
     lv_anim_set_playback_time(&PropertyAnimation_0, 0);
     lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
@@ -168,101 +121,6 @@ void ui_event_ImageAppIcon(lv_event_t * e)
 }
 
 ///////////////////// SCREENS ////////////////////
-void ui_ScreenStartup_screen_init(void)
-{
-    ui_ScreenStartup = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_ScreenStartup, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_color(ui_ScreenStartup, lv_color_hex(0xDFDFDF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_ScreenStartup, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelLogo0 = lv_label_create(ui_ScreenStartup);
-    lv_obj_set_width(ui_LabelLogo0, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelLogo0, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelLogo0, -93);
-    lv_obj_set_y(ui_LabelLogo0, -168);
-    lv_obj_set_align(ui_LabelLogo0, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelLogo0, "C");
-    lv_obj_set_style_text_color(ui_LabelLogo0, lv_color_hex(0x929292), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelLogo0, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelLogo0, &ui_font_FontHarmonyOSSansSCMedium48, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelLogo1 = lv_label_create(ui_ScreenStartup);
-    lv_obj_set_width(ui_LabelLogo1, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelLogo1, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelLogo1, -56);
-    lv_obj_set_y(ui_LabelLogo1, -168);
-    lv_obj_set_align(ui_LabelLogo1, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelLogo1, "H");
-    lv_obj_set_style_text_color(ui_LabelLogo1, lv_color_hex(0x929292), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelLogo1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelLogo1, &ui_font_FontHarmonyOSSansSCMedium48, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelLogo2 = lv_label_create(ui_ScreenStartup);
-    lv_obj_set_width(ui_LabelLogo2, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelLogo2, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelLogo2, -20);
-    lv_obj_set_y(ui_LabelLogo2, -168);
-    lv_obj_set_align(ui_LabelLogo2, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelLogo2, "A");
-    lv_obj_set_style_text_color(ui_LabelLogo2, lv_color_hex(0x929292), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelLogo2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelLogo2, &ui_font_FontHarmonyOSSansSCMedium48, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelLogo3 = lv_label_create(ui_ScreenStartup);
-    lv_obj_set_width(ui_LabelLogo3, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelLogo3, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelLogo3, 12);
-    lv_obj_set_y(ui_LabelLogo3, -168);
-    lv_obj_set_align(ui_LabelLogo3, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelLogo3, "P");
-    lv_obj_set_style_text_color(ui_LabelLogo3, lv_color_hex(0x929292), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelLogo3, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelLogo3, &ui_font_FontHarmonyOSSansSCMedium48, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelLogo4 = lv_label_create(ui_ScreenStartup);
-    lv_obj_set_width(ui_LabelLogo4, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelLogo4, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelLogo4, 42);
-    lv_obj_set_y(ui_LabelLogo4, -168);
-    lv_obj_set_align(ui_LabelLogo4, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelLogo4, "P");
-    lv_obj_set_style_text_color(ui_LabelLogo4, lv_color_hex(0x929292), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelLogo4, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelLogo4, &ui_font_FontHarmonyOSSansSCMedium48, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelLogo5 = lv_label_create(ui_ScreenStartup);
-    lv_obj_set_width(ui_LabelLogo5, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelLogo5, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelLogo5, 66);
-    lv_obj_set_y(ui_LabelLogo5, -168);
-    lv_obj_set_align(ui_LabelLogo5, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelLogo5, "I");
-    lv_obj_set_style_text_color(ui_LabelLogo5, lv_color_hex(0x929292), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelLogo5, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelLogo5, &ui_font_FontHarmonyOSSansSCMedium48, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelLogo6 = lv_label_create(ui_ScreenStartup);
-    lv_obj_set_width(ui_LabelLogo6, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelLogo6, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelLogo6, 88);
-    lv_obj_set_y(ui_LabelLogo6, -168);
-    lv_obj_set_align(ui_LabelLogo6, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelLogo6, "E");
-    lv_obj_set_style_text_color(ui_LabelLogo6, lv_color_hex(0x929292), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelLogo6, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelLogo6, &ui_font_FontHarmonyOSSansSCMedium48, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_ImageLogoBottom = lv_img_create(ui_ScreenStartup);
-    lv_img_set_src(ui_ImageLogoBottom, &ui_img_pic_startupbottom_png);
-    lv_obj_set_width(ui_ImageLogoBottom, LV_SIZE_CONTENT);   /// 280
-    lv_obj_set_height(ui_ImageLogoBottom, LV_SIZE_CONTENT);    /// 113
-    lv_obj_set_x(ui_ImageLogoBottom, 0);
-    lv_obj_set_y(ui_ImageLogoBottom, 63);
-    lv_obj_set_align(ui_ImageLogoBottom, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_ImageLogoBottom, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_ImageLogoBottom, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-
-}
 void ui_ScreenLauncher_screen_init(void)
 {
     ui_ScreenLauncher = lv_obj_create(NULL);
@@ -350,11 +208,11 @@ void ui_ScreenLauncher_screen_init(void)
 
 void ui_init(void)
 {
-    lv_disp_t * dispp = lv_disp_get_default();
-    lv_theme_t * theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED),
-                                               false, LV_FONT_DEFAULT);
-    lv_disp_set_theme(dispp, theme);
-    ui_ScreenStartup_screen_init();
+    // lv_disp_t * dispp = lv_disp_get_default();
+    // lv_theme_t * theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED),
+    //                                            false, LV_FONT_DEFAULT);
+    // lv_disp_set_theme(dispp, theme);
     ui_ScreenLauncher_screen_init();
-    lv_disp_load_scr(ui_ScreenStartup);
+    // lv_disp_load_scr(ui_ScreenLauncher);
+    lv_scr_load_anim(ui_ScreenLauncher, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 200, 0, true);
 }

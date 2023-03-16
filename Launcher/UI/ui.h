@@ -13,20 +13,9 @@ extern "C" {
 #include "lvgl.h"
 
 void AppIconPopout_Animation(lv_obj_t * TargetObject, int delay);
-void LogoDropdown_Animation(lv_obj_t * TargetObject, int delay);
-void LogoBottomUp_Animation(lv_obj_t * TargetObject, int delay);
 void AppIconClicked_Animation(lv_obj_t * TargetObject, int delay);
 void AppIconFadeaway_Animation(lv_obj_t * TargetObject, int delay);
 void AppIconFadeIn_Animation(lv_obj_t * TargetObject, int delay);
-extern lv_obj_t * ui_ScreenStartup;
-extern lv_obj_t * ui_LabelLogo0;
-extern lv_obj_t * ui_LabelLogo1;
-extern lv_obj_t * ui_LabelLogo2;
-extern lv_obj_t * ui_LabelLogo3;
-extern lv_obj_t * ui_LabelLogo4;
-extern lv_obj_t * ui_LabelLogo5;
-extern lv_obj_t * ui_LabelLogo6;
-extern lv_obj_t * ui_ImageLogoBottom;
 extern lv_obj_t * ui_ScreenLauncher;
 extern lv_obj_t * ui_ImageStateBar;
 extern lv_obj_t * ui_LabelStateBarClock;
@@ -39,12 +28,12 @@ extern lv_obj_t * ui_ImageAppIcon;
 void AppListValueChanged(lv_event_t * e);
 void AppIconClicked(lv_event_t * e);
 
-LV_IMG_DECLARE(ui_img_pic_startupbottom_png);    // assets\Pic_StartupBottom.png
 LV_IMG_DECLARE(ui_img_pic_statebar_png);    // assets\Pic_StateBar.png
 LV_IMG_DECLARE(ui_img_pic_appicon_watch_png);    // assets\Pic_AppIcon_Watch.png
 LV_IMG_DECLARE(ui_img_pic_appicon_default_png);    // assets\Pic_AppIcon_Default.png
 LV_IMG_DECLARE(ui_img_pic_appicon_games_png);    // assets\Pic_AppIcon_Games.png
 LV_IMG_DECLARE(ui_img_pic_appicon_settings_png);    // assets\Pic_AppIcon_Settings.png
+LV_IMG_DECLARE(ui_img_pic_startupbottom_png);    // assets\Pic_StartupBottom.png
 
 
 LV_FONT_DECLARE(ui_font_FontHarmonyOSSansSCLight72);

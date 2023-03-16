@@ -45,7 +45,7 @@ namespace App {
      */
     void App_Settings_onCreate()
     {
-        UI_LOG("[%s] oncreste\n", App_Settings_appName().c_str());
+        UI_LOG("[%s] oncreate\n", App_Settings_appName().c_str());
     }
 
 

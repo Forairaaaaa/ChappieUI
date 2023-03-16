@@ -45,7 +45,7 @@ namespace App {
      */
     void App_Demo_onCreate()
     {
-        UI_LOG("[%s] oncreste\n", App_Demo_appName().c_str());
+        UI_LOG("[%s] onCreate\n", App_Demo_appName().c_str());
     }
 
 
@@ -55,7 +55,7 @@ namespace App {
      */
     void App_Demo_onLoop()
     {
-
+        UI_LOG("[%s] onLoop\n", App_Demo_appName().c_str());
     }
 
 
