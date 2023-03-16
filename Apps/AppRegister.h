@@ -14,9 +14,9 @@
 #include "App_Test/App_Test.h"
 
 
-namespace ChappieUIApp {
+namespace App {
     
-    static ChappieUIApp_t AppRegister[] = {
+    static AppRegister_t Register[] = {
 
         App_Test,
 

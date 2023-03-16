@@ -11,14 +11,14 @@
 #pragma once
 #include "../AppRegisterType.h"
 
-namespace ChappieUIApp {
+namespace App {
 
     std::string App_Test_appName();
     void* App_Test_appIcon();
     void App_Test_onCreate();
     void App_Test_onDestroy();
 
-    static ChappieUIApp_t App_Test = {
+    static AppRegister_t App_Test = {
         appName:App_Test_appName,
         appIcon:App_Test_appIcon,
         onCreate:App_Test_onCreate,

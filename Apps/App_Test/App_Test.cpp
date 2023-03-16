@@ -12,7 +12,7 @@
 #include <Arduino.h>
 
 
-namespace ChappieUIApp {
+namespace App {
 
     std::string App_Test_appName()
     {

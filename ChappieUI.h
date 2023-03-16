@@ -18,7 +18,7 @@ class CHAPPIEUI {
     private:
         bool _inited;
         CHAPPIE* _device;
-        App_Launcher* _launcher;
+        App::App_Launcher* _launcher;
 
     public:
         CHAPPIEUI() : _inited(false) {}

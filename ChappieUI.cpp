@@ -26,7 +26,7 @@ int CHAPPIEUI::begin()
     }
     
     /* Create launcher */
-    _launcher = new App_Launcher(_device);
+    _launcher = new App::App_Launcher(_device);
     if (_device == NULL) {
         UI_LOG("[ChappieUI] Launcher create failed\n");
         return -1;

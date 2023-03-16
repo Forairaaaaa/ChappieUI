@@ -11,10 +11,10 @@
 #pragma once
 #include <string>
 
-namespace ChappieUIApp {
+namespace App {
 
     /* Structure to contain app function pointers  */
-    struct ChappieUIApp_t {
+    struct AppRegister_t {
         
         /* Return app name */
         std::string (*appName)();
