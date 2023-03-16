@@ -31,6 +31,9 @@ namespace App {
 
         /* App onDestroy */
         void (*onDestroy)();
+
+        /* Pass a BSP pointer */
+        void (*getBsp)(void* bsp);
     };
 
 }
@@ -44,6 +47,7 @@ namespace App {
         onCreate:App_ ## app_name ## _onCreate, \
         onLoop:App_ ## app_name ## _onLoop, \
         onDestroy:App_ ## app_name ## _onDestroy, \
+        getBsp:App_ ## app_name ## _getBsp, \
     };
 
 

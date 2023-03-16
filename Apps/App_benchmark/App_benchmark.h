@@ -1,5 +1,5 @@
 /**
- * @file App_Settings.h
+ * @file App_benchmark.h
  * @author Forairaaaaa
  * @brief 
  * @version 0.1
@@ -18,19 +18,16 @@
  */
 namespace App {
 
-    /**
-     * @brief 4 basic functions is needed for register
-     * 
-     */
-    std::string App_Settings_appName();
-    void* App_Settings_appIcon();
-    void App_Settings_onCreate();
-    void App_Settings_onLoop();
-    void App_Settings_onDestroy();
+    std::string App_benchmark_appName();
+    void* App_benchmark_appIcon();
+    void App_benchmark_onCreate();
+    void App_benchmark_onLoop();
+    void App_benchmark_onDestroy();
+    void App_benchmark_getBsp(void* bsp);
 
     /**
      * @brief Declace your App like this 
      * 
      */
-    App_Declare(Settings);
+    App_Declare(benchmark);
 }

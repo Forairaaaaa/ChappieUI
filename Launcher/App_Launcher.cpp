@@ -102,6 +102,7 @@ namespace App {
             /* Destroy launcher */
             onDestroy();
             /* Open App */
+            App::Register[_app.selected].getBsp(_device);
             App::Register[_app.selected].onCreate();
         }
         if (_app.isRunning) {

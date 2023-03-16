@@ -1,5 +1,5 @@
 /**
- * @file App_Demo.cpp
+ * @file App_benchmark.cpp
  * @author Forairaaaaa
  * @brief 
  * @version 0.1
@@ -8,11 +8,13 @@
  * @copyright Copyright (c) 2023
  * 
  */
-#include "App_Demo.h"
+#include "App_benchmark.h"
 #include "../../../ChappieBsp/Chappie.h"
+#include <Arduino.h>
+#include <lvgl.h>
 
 
-static std::string app_name = "Demo";
+static std::string app_name = "benchmark";
 static CHAPPIE* device;
 
 
@@ -23,7 +25,7 @@ namespace App {
      * 
      * @return std::string 
      */
-    std::string App_Demo_appName()
+    std::string App_benchmark_appName()
     {
         return app_name;
     }
@@ -34,7 +36,7 @@ namespace App {
      * 
      * @return void* 
      */
-    void* App_Demo_appIcon()
+    void* App_benchmark_appIcon()
     {
         return NULL;
     }
@@ -44,17 +46,11 @@ namespace App {
      * @brief Called when App is on create
      * 
      */
-    void App_Demo_onCreate()
+    void App_benchmark_onCreate()
     {
-        UI_LOG("[%s] onCreate\n", App_Demo_appName().c_str());
+        UI_LOG("[%s] onCreate\n", App_benchmark_appName().c_str());
 
-        /*Create an Arc*/
-        lv_obj_t * arc = lv_arc_create(lv_scr_act());
-        lv_obj_set_size(arc, 150, 150);
-        lv_arc_set_rotation(arc, 135);
-        lv_arc_set_bg_angles(arc, 0, 270);
-        lv_arc_set_value(arc, 40);
-        lv_obj_center(arc);
+        lv_demo_benchmark();
     }
 
 
@@ -64,7 +60,7 @@ namespace App {
      * Try use millis() instead of delay() here
      * 
      */
-    void App_Demo_onLoop()
+    void App_benchmark_onLoop()
     {
     }
 
@@ -74,9 +70,9 @@ namespace App {
      * Please remember to release the resourse like lvgl timers in this function
      * 
      */
-    void App_Demo_onDestroy()
+    void App_benchmark_onDestroy()
     {
-        UI_LOG("[%s] onDestroy\n", App_Demo_appName().c_str());
+        UI_LOG("[%s] onDestroy\n", App_benchmark_appName().c_str());
     }
 
 
@@ -84,7 +80,7 @@ namespace App {
      * @brief Launcher will pass the BSP pointer through this function before onCreate
      * 
      */
-    void App_Demo_getBsp(void* bsp)
+    void App_benchmark_getBsp(void* bsp)
     {
         device = (CHAPPIE*)bsp;
     }
