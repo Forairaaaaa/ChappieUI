@@ -12,7 +12,7 @@
 #include "../../../ChappieBsp/Chappie.h"
 #include <Arduino.h>
 #include <lvgl.h>
-
+#include "../../Launcher/UI/ui.h"
 
 static std::string app_name = "Widgets";
 static CHAPPIE* device;
@@ -38,7 +38,8 @@ namespace App {
      */
     void* App_Widgets_appIcon()
     {
-        return NULL;
+        // return NULL;
+        return (void*)&ui_img_img_icon_test1_png;
     }
 
 

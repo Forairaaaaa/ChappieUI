@@ -12,34 +12,40 @@ extern "C" {
 
 #include "lvgl.h"
 
-void AppIconPopout_Animation(lv_obj_t * TargetObject, int delay);
-void AppIconClicked_Animation(lv_obj_t * TargetObject, int delay);
-void AppIconFadeaway_Animation(lv_obj_t * TargetObject, int delay);
-void AppIconFadeIn_Animation(lv_obj_t * TargetObject, int delay);
+void StateBarDropDown_Animation(lv_obj_t * TargetObject, int delay);
+void StateBarPullUp_Animation(lv_obj_t * TargetObject, int delay);
 extern lv_obj_t * ui_ScreenLauncher;
-extern lv_obj_t * ui_ImageStateBar;
-extern lv_obj_t * ui_LabelStateBarClock;
-extern lv_obj_t * ui_LabelStateBarBattery;
-void ui_event_RollerAppList(lv_event_t * e);
-extern lv_obj_t * ui_RollerAppList;
-void ui_event_ImageAppIcon(lv_event_t * e);
-extern lv_obj_t * ui_ImageAppIcon;
+extern lv_obj_t * ui_PanelDesktop;
+extern lv_obj_t * ui_PanelControlPad;
+extern lv_obj_t * ui_ArcBrightness;
+extern lv_obj_t * ui_LabelBrightness;
+extern lv_obj_t * ui_ButtonAutoScreenOff;
+extern lv_obj_t * ui_LabelBtnAutoScreenOff;
+extern lv_obj_t * ui_ButtonInfos;
+extern lv_obj_t * ui_ButtonWifi;
+extern lv_obj_t * ui_ButtonBle;
+extern lv_obj_t * ui_PanelHome;
+extern lv_obj_t * ui_LabelHomeTime;
+extern lv_obj_t * ui_LabelStateBarTime1;
+extern lv_obj_t * ui_ImgStateBar;
+extern lv_obj_t * ui_LabelStateBarTime;
+extern lv_obj_t * ui_ImgBattery;
+extern lv_obj_t * ui_BatteryBar;
 
-void AppListValueChanged(lv_event_t * e);
-void AppIconClicked(lv_event_t * e);
 
-LV_IMG_DECLARE(ui_img_pic_statebar_png);    // assets\Pic_StateBar.png
-LV_IMG_DECLARE(ui_img_pic_appicon_watch_png);    // assets\Pic_AppIcon_Watch.png
-LV_IMG_DECLARE(ui_img_pic_appicon_default_png);    // assets\Pic_AppIcon_Default.png
-LV_IMG_DECLARE(ui_img_pic_appicon_games_png);    // assets\Pic_AppIcon_Games.png
-LV_IMG_DECLARE(ui_img_pic_appicon_settings_png);    // assets\Pic_AppIcon_Settings.png
-LV_IMG_DECLARE(ui_img_pic_startupbottom_png);    // assets\Pic_StartupBottom.png
+LV_IMG_DECLARE(ui_img_img_infos_png);    // assets\IMG_Infos.png
+LV_IMG_DECLARE(ui_img_img_wifi_png);    // assets\IMG_Wifi.png
+LV_IMG_DECLARE(ui_img_img_ble_png);    // assets\IMG_Ble.png
+LV_IMG_DECLARE(ui_img_img_statebar_png);    // assets\IMG_StateBar.png
+LV_IMG_DECLARE(ui_img_img_battery_png);    // assets\IMG_Battery.png
+LV_IMG_DECLARE(ui_img_img_icon_defalut_png);    // assets\IMG_Icon_Defalut.png
+LV_IMG_DECLARE(ui_img_img_icon_test1_png);    // assets\IMG_Icon_test1.png
+LV_IMG_DECLARE(ui_img_img_icon_test2_png);    // assets\IMG_Icon_test2.png
 
 
-LV_FONT_DECLARE(ui_font_FontHarmonyOSSansSCLight72);
-LV_FONT_DECLARE(ui_font_FontHarmonyOSSansSCMedium16);
-LV_FONT_DECLARE(ui_font_FontHarmonyOSSansSCMedium24);
-LV_FONT_DECLARE(ui_font_FontHarmonyOSSansSCMedium48);
+LV_FONT_DECLARE(ui_font_FontUbuntuBold16);
+LV_FONT_DECLARE(ui_font_FontUbuntuBold18);
+LV_FONT_DECLARE(ui_font_FontUbuntuBold96);
 
 
 void ui_init(void);
