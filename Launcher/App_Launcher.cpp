@@ -80,14 +80,9 @@ namespace App {
         
         /* Go home from previous place */
         if (_app.selected != -1) {
-            /* State bar should show up */
+            /* Pull down state bar manully */
             lv_obj_set_y(ui_ImgStateBar, -105);
             lv_obj_scroll_to_view(lv_obj_get_child(ui_PanelDesktop, (_app.selected * 2 + 2)), LV_ANIM_OFF);
-
-            _device->lvgl.enable();
-            delay(280);
-            _device->lvgl.disable();
-            lv_obj_scroll_to_view(lv_obj_get_child(ui_PanelDesktop, 1), LV_ANIM_ON);
         }
         else {
             lv_obj_scroll_to_view(lv_obj_get_child(ui_PanelDesktop, 1), LV_ANIM_OFF);
