@@ -10,5 +10,15 @@
  */
 #pragma once
 
+/**
+ * @brief Basic infos 
+ * 
+ */
+#define UI_VERSION  "V1.0"
+
+/**
+ * @brief Define the way to format logout
+ * 
+ */
 #define UI_LOG(format, args...) printf(format, ##args)
 

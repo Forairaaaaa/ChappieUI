@@ -33,18 +33,7 @@
  * @brief 2) Include your App's header file
  * 
  */
-#include "App_Demo/App_Demo.h"
-#include "App_Widgets/App_Widgets.h"
-#include "App_benchmark/App_benchmark.h"
 
-#include "App_777/App_777.h"
-#include "App_114514/App_114514.h"
-#include "App_Cyberpunk2023/App_Cyberpunk2023.h"
-#include "App_EVA/App_EVA.h"
-#include "App_GTA5/App_GTA5.h"
-#include "App_NFS/App_NFS.h"
-#include "App_nihaowohaodajiahao/App_nihaowohaodajiahao.h"
-#include "App_shit/App_shit.h"
 
 
 namespace App {
@@ -56,18 +45,9 @@ namespace App {
          * @brief 3) Log your App into AppRegister here
          * 
          */
-        App_Login(Demo),
-        App_Login(Widgets),
-        App_Login(benchmark),
+        
 
-        App_Login(777),
-        App_Login(114514),
-        App_Login(Cyberpunk2023),
-        App_Login(EVA),
-        App_Login(GTA5),
-        App_Login(NFS),
-        App_Login(nihaowohaodajiahao),
-        App_Login(shit),
+     
         
 
     };

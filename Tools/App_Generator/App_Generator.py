@@ -15,25 +15,34 @@ def creteApp():
     folder_name = "App_" + app_name
     source_file_name = "App_" + app_name + "/App_" + app_name + ".cpp"
     header_file_name = "App_" + app_name + "/App_" + app_name + ".h"
-    print("File names:\n - {}\n - {}".format(source_file_name, header_file_name))
+    print("> File names:\n - {}\n - {}\n".format(source_file_name, header_file_name))
+
     # Create folder
     os.mkdir(folder_name)
+
     # Create files 
     source_file = open(source_file_name, mode='w+')
     header_file = open(header_file_name, mode='w+')
+
     # Read Template content
     content_source_file = open("Resource/App_Template/App_Template.cpp", mode='r').read()
     content_header_file = open("Resource/App_Template/App_Template.h", mode='r').read()
+
     # Rename
     content_source_file = content_source_file.replace("Template", app_name)
     content_header_file = content_header_file.replace("Template", app_name)
+
     # Write in
     source_file.write(content_source_file)
     header_file.write(content_header_file)
+
     # Close files
     source_file.close()
     header_file.close()
 
+    print("> Add them to your \"AppRegister.h\" :\n")
+    print("#include \"App_{}/App_{}.h\"\n".format(app_name, app_name))
+    print("App_Login({}),".format(app_name))
 
 
 if __name__=="__main__":
@@ -43,10 +52,10 @@ if __name__=="__main__":
         getAppName()
         if app_name != "":
             break
-        print("X Error name, please try again")
-    print("Get App name: {}".format(app_name))
+        print("X Error name, please try again\n")
+    print("> Get App name: {}\n".format(app_name))
     
     creteApp()
 
-    print("Done")
+    print("\n> Done")
 
