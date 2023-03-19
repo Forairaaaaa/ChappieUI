@@ -11,7 +11,6 @@
 #pragma once
 #include <string>
 
-
 namespace App {
 
     /* Structure to contain app function pointers  */
