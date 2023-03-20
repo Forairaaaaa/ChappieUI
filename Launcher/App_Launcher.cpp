@@ -26,9 +26,12 @@ static AppManager_t _app;
 /* Structure to hold device status */
 struct DeviceStatus_t {
     bool updated = false;
+    bool autoScreenOff = false;
     uint8_t brightness = 127;
+    uint32_t autoScreenOffTime = 10000;
 };
 static DeviceStatus_t _device_status;
+
 
 namespace App {
 
@@ -85,9 +88,11 @@ namespace App {
         /* Add ui event call back */
         lv_obj_add_event_cb(ui_PanelDesktop, scroll_event_cb, LV_EVENT_SCROLL_END, NULL);
         lv_obj_add_event_cb(ui_ArcBrightness, panel_control_pad_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+        lv_obj_add_event_cb(ui_ButtonAutoScreenOff, panel_control_pad_event_cb, LV_EVENT_CLICKED, NULL);
         lv_obj_add_event_cb(ui_ButtonInfos, panel_control_pad_event_cb, LV_EVENT_CLICKED, NULL);
         lv_obj_add_event_cb(ui_ButtonWifi, panel_control_pad_event_cb, LV_EVENT_CLICKED, NULL);
         lv_obj_add_event_cb(ui_ButtonBle, panel_control_pad_event_cb, LV_EVENT_CLICKED, NULL);
+        
         
         /* Go to the previous place */
         if (_app.selected != -1) {
@@ -103,6 +108,14 @@ namespace App {
         _time_update_timer = lv_timer_create(time_update, 1000, (void*)_device);
         time_update(_time_update_timer);
 
+        /* Reset auto screen off time counting */
+        lv_disp_trig_activity(NULL);
+
+        /* Update control panel */
+        if (_device_status.autoScreenOff) {
+            lv_obj_add_state(ui_ButtonAutoScreenOff, (LV_STATE_CHECKED | LV_STATE_FOCUSED));
+        }
+        
         _device->lvgl.enable();
     }
 
@@ -111,19 +124,69 @@ namespace App {
     {
         _device->lvgl.disable();
 
-        /* If key home is pressed */
+        updateDeviceStatus();
+        
+        updateAppManage();
+
+        _device->lvgl.enable();
+    }
+
+
+    void App_Launcher::onDestroy()
+    {
+        /* Delete timer */
+        lv_timer_del(_time_update_timer);
+        
+        /* Delete Launcher screen and reaplace with an empty one */
+        lv_disp_load_scr(lv_obj_create(NULL));
+        lv_obj_del(ui_ScreenLauncher);
+    }
+
+
+    void App_Launcher::updateDeviceStatus()
+    {
+        /* If button home is pressed */
         if (_device->Button.B.pressed()) {
             if (_app.isRunning) {
                 _app.onDestroy = true;
             }
+
+            /* If not at home, go home */
             else {
                 lv_obj_scroll_to_view(lv_obj_get_child(ui_PanelDesktop, 1), LV_ANIM_ON);
             }
+
+            /* Reset auto screen off time counting */
+            lv_disp_trig_activity(NULL);
         }
+
+        /* If button power is pressed */
         if (_device->Button.A.pressed()) {
             esp_restart();
         }
 
+        /* Device status manage */
+        if (_device_status.updated) {
+            _device_status.updated = false;
+            /* Update brightness */
+            _device->Lcd.setBrightness(_device_status.brightness);
+        }
+
+        /* If hit auto screen off time  */
+        if (_device_status.autoScreenOff && (lv_disp_get_inactive_time(NULL) > _device_status.autoScreenOffTime)) {
+            _device->Lcd.setBrightness(0);
+            sleep_mode();
+            _device->Button.B.begin();
+            _device->Lcd.setBrightness(_device_status.brightness);
+
+            /* Reset auto screen off time counting */
+            lv_disp_trig_activity(NULL);
+        }
+    }
+
+
+    void App_Launcher::updateAppManage()
+    {
         /* App state manage, kind of like a FSM */
         if (_app.onCreate) {
             _app.onCreate = false;
@@ -147,23 +210,6 @@ namespace App {
             /* Create launcher */
             onCreate();
         }
-
-        /* Device status manage */
-        
-
-
-        _device->lvgl.enable();
-    }
-
-
-    void App_Launcher::onDestroy()
-    {
-        /* Delete timer */
-        lv_timer_del(_time_update_timer);
-        
-        /* Delete Launcher screen and reaplace with an empty one */
-        lv_disp_load_scr(lv_obj_create(NULL));
-        lv_obj_del(ui_ScreenLauncher);
     }
 
     
@@ -191,11 +237,11 @@ namespace App {
         static int16_t last_x = 280;
         lv_obj_t * obj = lv_event_get_target(e);
 
-        /* If leave pannel home */
+        /* If enter pannel home */
         if ((lv_obj_get_scroll_x(obj) == 280) && (last_x != 280)) {
             StateBarPullUp_Animation(ui_ImgStateBar, 0);
         }
-        /* If enter pannel home */
+        /* If leave pannel home */
         else if ((lv_obj_get_scroll_x(obj) != 280) && (last_x == 280)) {
             StateBarDropDown_Animation(ui_ImgStateBar, 0);
         }
@@ -229,7 +275,7 @@ namespace App {
         }
 
         /* If clicked infos button */
-        if (obj == ui_ButtonInfos) {
+        else if (obj == ui_ButtonInfos) {
             /* Go look for App setting */
             for (int i = 0; i < _app.totalNum; i++) {
                 if (App::Register[i].appName() == "Settings") {
@@ -240,6 +286,36 @@ namespace App {
             }
         }
 
+        /* If enable auto screen off */
+        else if (obj == ui_ButtonAutoScreenOff) {
+            // UI_LOG("%d\n", lv_obj_get_state(obj));
+            if (lv_obj_get_state(obj) == (LV_STATE_CHECKED | LV_STATE_FOCUSED)) {
+                _device_status.autoScreenOff = true;
+            }
+            else {
+                _device_status.autoScreenOff = false;
+            }
+        }
+
+    }
+
+
+    void App_Launcher::sleep_mode()
+    {
+        /* Reset button B and touchpad intterupt pin */
+        gpio_reset_pin(GPIO_NUM_0);
+        gpio_set_direction(GPIO_NUM_0, GPIO_MODE_INPUT);
+        gpio_wakeup_enable(GPIO_NUM_0, GPIO_INTR_LOW_LEVEL);
+        gpio_reset_pin(GPIO_NUM_21);
+        gpio_set_direction(GPIO_NUM_21, GPIO_MODE_INPUT);
+        gpio_wakeup_enable(GPIO_NUM_21, GPIO_INTR_LOW_LEVEL);
+        esp_sleep_enable_gpio_wakeup();
+        
+        /* Hold untill button released */
+        while (gpio_get_level(GPIO_NUM_0) == 0) { delay(20); }
+
+        /* Go to sleep */
+        esp_light_sleep_start();
     }
 
 }
