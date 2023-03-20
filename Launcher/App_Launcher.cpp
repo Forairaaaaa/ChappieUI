@@ -9,6 +9,7 @@
  * 
  */
 #include "App_Launcher.h"
+#include "../ChappieUIConfigs.h"
 #include "UI/ui.h"
 
 
@@ -22,12 +23,17 @@ struct AppManager_t {
 };
 static AppManager_t _app;
 
+/* Structure to hold device status */
+struct DeviceStatus_t {
+    bool updated = false;
+    uint8_t brightness = 127;
+};
+static DeviceStatus_t _device_status;
 
 namespace App {
 
     void App_Launcher::onCreate()
     {
-        /* Into launcher */
         _device->lvgl.disable();
 
         /* Reinit lvgl to free resources */
@@ -38,12 +44,10 @@ namespace App {
         ui_init();
         lv_obj_set_style_bg_color(lv_scr_act(), lv_color_hex(0x4D5B74), LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_scr_load_anim(ui_ScreenLauncher, LV_SCR_LOAD_ANIM_FADE_IN, 250, 0, true);
-        // lv_scr_load_anim(ui_ScreenLauncher, LV_SCR_LOAD_ANIM_NONE, 0, 0, true);
 
         /* Desktop init */
         lv_obj_set_scroll_snap_x(ui_PanelDesktop, LV_SCROLL_SNAP_CENTER);
         lv_obj_update_snap(ui_PanelDesktop, LV_ANIM_ON);
-        lv_obj_add_event_cb(ui_PanelDesktop, scroll_event_cb, LV_EVENT_SCROLL_END, NULL);
 
         /* Read App register */
         _app.totalNum = sizeof(App::Register) / sizeof(App::AppRegister_t);
@@ -77,8 +81,15 @@ namespace App {
             lv_obj_set_style_text_color(app_name, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
             lv_obj_set_style_text_font(app_name, &ui_font_FontUbuntuBold18, LV_PART_MAIN | LV_STATE_DEFAULT);
         }
+
+        /* Add ui event call back */
+        lv_obj_add_event_cb(ui_PanelDesktop, scroll_event_cb, LV_EVENT_SCROLL_END, NULL);
+        lv_obj_add_event_cb(ui_ArcBrightness, panel_control_pad_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+        lv_obj_add_event_cb(ui_ButtonInfos, panel_control_pad_event_cb, LV_EVENT_CLICKED, NULL);
+        lv_obj_add_event_cb(ui_ButtonWifi, panel_control_pad_event_cb, LV_EVENT_CLICKED, NULL);
+        lv_obj_add_event_cb(ui_ButtonBle, panel_control_pad_event_cb, LV_EVENT_CLICKED, NULL);
         
-        /* Go home from previous place */
+        /* Go to the previous place */
         if (_app.selected != -1) {
             /* Pull down state bar manully */
             lv_obj_set_y(ui_ImgStateBar, -105);
@@ -91,6 +102,7 @@ namespace App {
         /* Create a timer to update time */
         _time_update_timer = lv_timer_create(time_update, 1000, (void*)_device);
         time_update(_time_update_timer);
+
         _device->lvgl.enable();
     }
 
@@ -136,6 +148,10 @@ namespace App {
             onCreate();
         }
 
+        /* Device status manage */
+        
+
+
         _device->lvgl.enable();
     }
 
@@ -149,6 +165,9 @@ namespace App {
         lv_disp_load_scr(lv_obj_create(NULL));
         lv_obj_del(ui_ScreenLauncher);
     }
+
+    
+    /* ------------------------------------------------ UI events ------------------------------------------------ */
 
 
     void App_Launcher::time_update(lv_timer_t * timer)
@@ -195,6 +214,32 @@ namespace App {
             _app.selected = (lv_obj_get_index(obj) - 2) / 2;
             _app.onCreate = true;
         }
+    }
+
+
+    void App_Launcher::panel_control_pad_event_cb(lv_event_t * e)
+    {
+        lv_obj_t * obj = lv_event_get_target(e);
+        lv_event_code_t code = lv_event_get_code(e);
+
+        /* If setting brightness */
+        if (obj == ui_ArcBrightness) {
+            _device_status.updated = true;
+            _device_status.brightness = lv_arc_get_value(obj);
+        }
+
+        /* If clicked infos button */
+        if (obj == ui_ButtonInfos) {
+            /* Go look for App setting */
+            for (int i = 0; i < _app.totalNum; i++) {
+                if (App::Register[i].appName() == "Settings") {
+                    _app.selected = i;
+                    _app.onCreate = true;
+                    break;
+                }
+            }
+        }
+
     }
 
 }

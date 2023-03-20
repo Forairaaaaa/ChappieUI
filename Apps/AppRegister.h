@@ -33,6 +33,7 @@
  * @brief 2) Include your App's header file
  * 
  */
+#include "App_Settings/App_Settings.h"
 /* Header files locator */
 /* Don't remove this, or python script's auto login will be failed */
 
@@ -46,6 +47,7 @@ namespace App {
          * @brief 3) Log your App into AppRegister here
          * 
          */
+		App_Login(Settings),
 		/* Login locator */
         /* Don't remove this, or python script's auto login will be failed */
 
