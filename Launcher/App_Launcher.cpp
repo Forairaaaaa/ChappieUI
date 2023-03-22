@@ -28,7 +28,7 @@ struct DeviceStatus_t {
     bool updated = false;
     bool autoScreenOff = false;
     uint8_t brightness = 127;
-    uint32_t autoScreenOffTime = 10000;
+    uint32_t autoScreenOffTime = 20000;
 };
 static DeviceStatus_t _device_status;
 
