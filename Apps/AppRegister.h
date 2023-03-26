@@ -33,8 +33,8 @@
  * @brief 2) Include your App's header file
  * 
  */
-#include "App_Settings/App_Settings.h"
 #include "App_StupidSnake/App_StupidSnake.h"
+#include "App_Watch/App_Watch.h"
 /* Header files locator */
 /* Don't remove this, or python script's auto login will be failed */
 
@@ -48,8 +48,8 @@ namespace App {
          * @brief 3) Log your App into AppRegister here
          * 
          */
-		App_Login(Settings),
 		App_Login(StupidSnake),
+		App_Login(Watch),
 		/* Login locator */
         /* Don't remove this, or python script's auto login will be failed */
 

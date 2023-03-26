@@ -39,8 +39,6 @@ LV_IMG_DECLARE(ui_img_img_ble_png);    // assets\IMG_Ble.png
 LV_IMG_DECLARE(ui_img_img_statebar_png);    // assets\IMG_StateBar.png
 LV_IMG_DECLARE(ui_img_img_battery_png);    // assets\IMG_Battery.png
 LV_IMG_DECLARE(ui_img_img_icon_defalut_png);    // assets\IMG_Icon_Defalut.png
-LV_IMG_DECLARE(ui_img_img_icon_test1_png);    // assets\IMG_Icon_test1.png
-LV_IMG_DECLARE(ui_img_img_icon_test2_png);    // assets\IMG_Icon_test2.png
 
 
 LV_FONT_DECLARE(ui_font_FontUbuntuBold16);
