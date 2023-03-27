@@ -130,7 +130,8 @@ namespace App {
      */
     void* App_Watch_appIcon()
     {
-        return NULL;
+        // return NULL;
+        return (void*)&ui_img_icon_clock_png;
     }
 
 

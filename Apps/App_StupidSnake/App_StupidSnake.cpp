@@ -17,6 +17,8 @@
 static std::string app_name = "StupidSnake";
 static CHAPPIE* device;
 
+LV_IMG_DECLARE(ui_img_icon_snakegame_png);
+
 
 namespace App {
 
@@ -38,7 +40,8 @@ namespace App {
      */
     void* App_StupidSnake_appIcon()
     {
-        return NULL;
+        // return NULL;
+        return (void*)&ui_img_icon_snakegame_png;
     }
 
 
