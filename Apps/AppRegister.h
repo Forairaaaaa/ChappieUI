@@ -36,6 +36,7 @@
 #include "App_StupidSnake/App_StupidSnake.h"
 #include "App_Watch/App_Watch.h"
 #include "App_Settings/App_Settings.h"
+#include "App_Dino/App_Dino.h"
 /* Header files locator */
 /* Don't remove this, or python script's auto login will be failed */
 
@@ -52,6 +53,7 @@ namespace App {
         App_Login(Watch),
         App_Login(Settings),
 		App_Login(StupidSnake),
+		App_Login(Dino),
 		/* Login locator */
         /* Don't remove this, or python script's auto login will be failed */
 

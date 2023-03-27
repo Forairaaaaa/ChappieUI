@@ -1,12 +1,12 @@
 #if 1
-#include "App_Settings.h"
+#include "App_Dino.h"
 #include "../../../ChappieBsp/Chappie.h"
 
 
-static std::string app_name = "Settings";
+static std::string app_name = "Dino";
 static CHAPPIE* device;
 
-LV_IMG_DECLARE(ui_img_icon_setting_png);
+LV_IMG_DECLARE(ui_img_icon_dinogame_png);
 
 
 namespace App {
@@ -16,7 +16,7 @@ namespace App {
      * 
      * @return std::string 
      */
-    std::string App_Settings_appName()
+    std::string App_Dino_appName()
     {
         return app_name;
     }
@@ -27,10 +27,10 @@ namespace App {
      * 
      * @return void* 
      */
-    void* App_Settings_appIcon()
+    void* App_Dino_appIcon()
     {
         // return NULL;
-        return (void*)&ui_img_icon_setting_png;
+        return (void*)&ui_img_icon_dinogame_png;
     }
 
 
@@ -38,9 +38,9 @@ namespace App {
      * @brief Called when App is on create
      * 
      */
-    void App_Settings_onCreate()
+    void App_Dino_onCreate()
     {
-        UI_LOG("[%s] onCreate\n", App_Settings_appName().c_str());
+        UI_LOG("[%s] onCreate\n", App_Dino_appName().c_str());
 
         /*Create an Arc*/
         lv_obj_t * arc = lv_arc_create(lv_scr_act());
@@ -58,7 +58,7 @@ namespace App {
      * Try use millis() instead of delay() here
      * 
      */
-    void App_Settings_onLoop()
+    void App_Dino_onLoop()
     {
     }
 
@@ -68,9 +68,9 @@ namespace App {
      * Please remember to release the resourse like lvgl timers in this function
      * 
      */
-    void App_Settings_onDestroy()
+    void App_Dino_onDestroy()
     {
-        UI_LOG("[%s] onDestroy\n", App_Settings_appName().c_str());
+        UI_LOG("[%s] onDestroy\n", App_Dino_appName().c_str());
     }
 
 
@@ -78,7 +78,7 @@ namespace App {
      * @brief Launcher will pass the BSP pointer through this function before onCreate
      * 
      */
-    void App_Settings_getBsp(void* bsp)
+    void App_Dino_getBsp(void* bsp)
     {
         device = (CHAPPIE*)bsp;
     }
