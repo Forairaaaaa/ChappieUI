@@ -1,12 +1,15 @@
 #if 1
 #include "App_Dino.h"
 #include "../../../ChappieBsp/Chappie.h"
-
+#include "Dino/include/Game.h"
 
 static std::string app_name = "Dino";
 static CHAPPIE* device;
 
 LV_IMG_DECLARE(ui_img_icon_dinogame_png);
+
+
+Game Dino;
 
 
 namespace App {
@@ -42,13 +45,16 @@ namespace App {
     {
         UI_LOG("[%s] onCreate\n", App_Dino_appName().c_str());
 
-        /*Create an Arc*/
-        lv_obj_t * arc = lv_arc_create(lv_scr_act());
-        lv_obj_set_size(arc, 150, 150);
-        lv_arc_set_rotation(arc, 135);
-        lv_arc_set_bg_angles(arc, 0, 270);
-        lv_arc_set_value(arc, 40);
-        lv_obj_center(arc);
+        device->Lcd.clear();
+        Dino.begin(device);
+        while (1)
+        {
+            Dino.loop();
+            if (device->Button.B.pressed()) {
+                break;
+            }
+        }
+        
     }
 
 
