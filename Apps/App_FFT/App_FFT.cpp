@@ -28,9 +28,9 @@ Input vectors receive computed results from FFT
 // static double vReal[samples];
 // static double vImag[samples];
 static double* _vReal;
+static double* _vReal_old;
 static double* _vImag;
 static int16_t* _rawData;
-
 
 static void _fft_init()
 {
@@ -42,8 +42,10 @@ static void _fft_init()
     
     /* Alloc buffer */
     _vReal = new double[_samples];
+    _vReal_old = new double[_samples];
     _vImag = new double[_samples];
     _rawData = new int16_t[_samples];
+    
 }
 
 
@@ -81,25 +83,46 @@ static void _fft_update_display()
 {
     _screen->fillScreen(TFT_BLACK);
 
-
-    for (int i = 0; i < _samples; i++) {
-        _screen->drawPixel(i + 10, (_rawData[i] / 10) + 100, TFT_YELLOW);
-    }
+    // /* Draw raw wave */
+    // for (int i = 0; i < _samples; i++) {
+    //     _screen->drawPixel(i + 10, (_rawData[i] / 10) + 100, TFT_DARKGRAY);
+    // }
 
     uint8_t color_num = 0;
     double value = 0;
     for (int i = 4; i < (_samples / 4); i += 2) {
+    
+        /* Draw falling bricks */
+        value = (_vReal_old[i] + _vReal_old[i+1]) / 2;
+        _screen->fillRoundRect(8 * i - 24, 10 + value - 8, 8, 8, 2, _color_list[color_num]);
+
+        /* Draw FFT */
         value = (_vReal[i] + _vReal[i+1]) / 2;
         value = value / 10;
         if (value > 220)
             value = 220;
-
         _screen->fillRoundRect(8 * i - 24, 10, 8, value, 2, _color_list[color_num]);
 
+        /* Change color */
         color_num++;
         if (color_num >= 7)
             color_num = 0;
     }
+
+    /* Update old buffer (falling bricks) */
+    for (int i = 0; i < _samples; i++) {
+        /* Fall */
+        _vReal_old[i]--;
+        
+        /* If higher hit */
+        value = _vReal[i] / 10;
+        if (value > 220)
+            value = 220;
+        if (value > _vReal_old[i])
+            _vReal_old[i] = value;
+    }
+
+    
 
     _screen->pushSprite(0, 0);
 }
