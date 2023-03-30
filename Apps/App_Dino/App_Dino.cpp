@@ -54,7 +54,9 @@ namespace App {
                 break;
             }
         }
-        
+        lv_obj_t * label = lv_label_create(lv_scr_act());
+        lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+        lv_label_set_text(label, "Press B again to quit");
     }
 
 

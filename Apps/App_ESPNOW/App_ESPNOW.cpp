@@ -43,13 +43,9 @@ namespace App {
     {
         UI_LOG("[%s] onCreate\n", App_ESPNOW_appName().c_str());
 
-        /*Create an Arc*/
-        lv_obj_t * arc = lv_arc_create(lv_scr_act());
-        lv_obj_set_size(arc, 150, 150);
-        lv_arc_set_rotation(arc, 135);
-        lv_arc_set_bg_angles(arc, 0, 270);
-        lv_arc_set_value(arc, 40);
-        lv_obj_center(arc);
+        lv_obj_t * label = lv_label_create(lv_scr_act());
+        lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+        lv_label_set_text(label, "Press B again to quit");
     }
 
 

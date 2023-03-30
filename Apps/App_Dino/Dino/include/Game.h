@@ -11,7 +11,7 @@
 #include "../FixedPointsArduino/src/FixedPoints.h"
 #include "../FixedPointsArduino/src/FixedPointsCommon.h"
 
-#define TFT_WIDTH   160
+#define TFT_WIDTH   128
 #define TFT_HEIGHT  128
 
 
