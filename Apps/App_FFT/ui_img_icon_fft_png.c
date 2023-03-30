@@ -3,7 +3,8 @@
 // LVGL version: 8.3.4
 // Project name: Watch
 
-#include "ui.h"
+// #include "ui.h"
+#include "lvgl.h"
 
 #ifndef LV_ATTRIBUTE_MEM_ALIGN
     #define LV_ATTRIBUTE_MEM_ALIGN
