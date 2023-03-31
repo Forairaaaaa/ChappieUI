@@ -41,10 +41,10 @@ static void _fft_init()
     _screen->createSprite(device->Lcd.width(), device->Lcd.height());
     
     /* Alloc buffer */
-    _vReal = new double[_samples];
-    _vReal_old = new double[_samples];
-    _vImag = new double[_samples];
-    _rawData = new int16_t[_samples];
+    _vReal      = new double[_samples];
+    _vReal_old  = new double[_samples]();
+    _vImag      = new double[_samples];
+    _rawData    = new int16_t[_samples];
     
 }
 
@@ -83,15 +83,18 @@ static void _fft_update_display()
 {
     _screen->fillScreen(TFT_BLACK);
 
-    // /* Draw raw wave */
-    // for (int i = 0; i < _samples; i++) {
-    //     _screen->drawPixel(i + 10, (_rawData[i] / 10) + 100, TFT_DARKGRAY);
-    // }
-
     uint8_t color_num = 0;
-    double value = 0;
-    for (int i = 4; i < (_samples / 4); i += 2) {
+
+    /* Draw raw wave */
+    for (int i = 0; i < _samples; i++) {
+        _screen->drawPixel(i + 10, (_rawData[i] / 10) + 100, _color_list[color_num]);
+        color_num++;
+        if (color_num >= 7)
+            color_num = 0;
+    }
     
+    double value = 0.0;
+    for (int i = 4; i < (_samples / 4); i += 2) {
         /* Draw falling bricks */
         value = (_vReal_old[i] + _vReal_old[i+1]) / 2;
         _screen->fillRoundRect(8 * i - 24, 10 + value - 8, 8, 8, 2, _color_list[color_num]);
@@ -103,7 +106,6 @@ static void _fft_update_display()
             value = 220;
         _screen->fillRoundRect(8 * i - 24, 10, 8, value, 2, _color_list[color_num]);
 
-        /* Change color */
         color_num++;
         if (color_num >= 7)
             color_num = 0;
@@ -112,7 +114,7 @@ static void _fft_update_display()
     /* Update old buffer (falling bricks) */
     for (int i = 0; i < _samples; i++) {
         /* Fall */
-        _vReal_old[i]--;
+        _vReal_old[i] -= 4;
         
         /* If higher hit */
         value = _vReal[i] / 10;
@@ -120,6 +122,7 @@ static void _fft_update_display()
             value = 220;
         if (value > _vReal_old[i])
             _vReal_old[i] = value;
+
     }
 
     
