@@ -1,8 +1,8 @@
 # ChappieUI
 
-基于[ChappieBsp](https://github.com/Forairaaaaa/ChappieBsp)的简单App框架
+基于[Lvgl](https://github.com/lvgl/lvgl)及[ChappieBsp](https://github.com/Forairaaaaa/ChappieBsp)的简单UI框架，UI框架实现简单App管理，启动器实现基础界面及App图形入口
 
-使用`App_Generator.py`在Apps目录一键生成模板App：
+使用`App_Generator.py`即可一键生成App：
 
 ```shell
 python ./App_Generator.py
