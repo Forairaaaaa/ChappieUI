@@ -50,7 +50,7 @@ static void _espnow_joystick_sender()
     }
 
     /* Espnow send data */
-    if ((x != 0) && (y != 0))
+    if ((x == 0) && (y == 0))
         snprintf(data_send, sizeof(data_send), "S:%d,%d", x, y);
     else 
         snprintf(data_send, sizeof(data_send), "S:%d,%d", x - _screen->width() / 2, y - _screen->height() / 2);
