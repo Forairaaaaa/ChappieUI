@@ -40,6 +40,7 @@
 #include "App_FFT/App_FFT.h"
 #include "App_ESPNOW/App_ESPNOW.h"
 #include "App_WifiTV/App_WifiTV.h"
+#include "App_Gamepad/App_Gamepad.h"
 /* Header files locator */
 /* Don't remove this, or python script's auto login will be failed */
 
@@ -60,6 +61,7 @@ namespace App {
 		App_Login(FFT),
 		App_Login(ESPNOW),
 		App_Login(WifiTV),
+		App_Login(Gamepad),
 		/* Login locator */
         /* Don't remove this, or python script's auto login will be failed */
 
