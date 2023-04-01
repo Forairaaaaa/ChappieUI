@@ -37,7 +37,6 @@ static void _espnow_joystick_sender()
 {
     static char data_send[20];
     static int x, y;
-    static uint32_t data_send_time_count = 0;
     
 
     /* Get toupad data */
@@ -53,7 +52,7 @@ static void _espnow_joystick_sender()
     if ((x == 0) && (y == 0))
         snprintf(data_send, sizeof(data_send), "S:%d,%d", x, y);
     else 
-        snprintf(data_send, sizeof(data_send), "S:%d,%d", x - _screen->width() / 2, y - _screen->height() / 2);
+        snprintf(data_send, sizeof(data_send), "S:%d,%d", x - _screen->width() / 2, -(y - _screen->height() / 2));
     esp_now_send(_broadcastAddress, (uint8_t*)data_send, sizeof(data_send));
 
     /* Update screen */
@@ -66,6 +65,12 @@ static void _espnow_joystick_sender()
     _screen->pushSprite(0, 0);
 
     delay(10);
+}
+
+
+static void _espnow_imu_sender()
+{
+
 }
 
 
