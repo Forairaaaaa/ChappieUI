@@ -27,6 +27,7 @@ LV_IMG_DECLARE(ui_img_icon_espnow_png);
 
 static LGFX_Sprite* _screen;
 static esp_now_peer_info_t _peerInfo;
+static bool is_joystick_mode = true;
 
 // REPLACE WITH THE MAC Address of your receiver 
 static uint8_t _broadcastAddress[] = {0x34, 0x85, 0x18, 0x92, 0xE8, 0x84};
@@ -70,7 +71,55 @@ static void _espnow_joystick_sender()
 
 static void _espnow_imu_sender()
 {
+    static char data_send[20];
+    static bool imu_inited = false;
+    static float y, p, r;
 
+    if (!imu_inited) {
+        device->Lcd.printf("Init IMU...\n");
+        imu_inited = true;
+        device->Imu.init();
+    }
+
+    device->Imu.getYawPitchRoll(y, p, r);
+
+    snprintf(data_send, sizeof(data_send), "S:%0.1f,%0.1f,%0.1f", y, p, r);
+    esp_now_send(_broadcastAddress, (uint8_t*)data_send, sizeof(data_send));
+
+    _screen->fillScreen(TFT_BLACK);
+    _screen->setTextSize(2);
+    _screen->setTextColor(TFT_ORANGE);
+    _screen->setCursor(0, 30);
+    _screen->printf(" > Yaw:   %.1f\n > Pitch: %.1f\n > Row:   %.1f\n", y, p, r);
+    _screen->printf(" > (=^.^=)\n");
+    _screen->pushSprite(0, 0);
+
+    delay(10);
+}
+
+
+static void _espnow_choose_sender_mode()
+{
+    device->Lcd.fillScreen(TFT_BLACK);
+    device->Lcd.setCursor(0, 0);
+    device->Lcd.setTextSize(1.5);
+    device->Lcd.setTextColor(TFT_ORANGE, TFT_BLACK);
+
+    device->Lcd.printf("> Choose sender mode <\n");
+    device->Lcd.printf("> BtnA: Joystick\n");
+    device->Lcd.printf("> BtnB: IMU\n");
+
+    while (1) {
+        if (device->Button.A.pressed()) {
+            is_joystick_mode = true;
+            break;
+        }
+        if (device->Button.B.pressed()) {
+            is_joystick_mode = false;
+            break;
+        }
+        delay(10);
+    }
 }
 
 
@@ -137,7 +186,10 @@ static void _espnow_init()
 
 static void _espnow_loop()
 {
-    _espnow_joystick_sender();
+    if (is_joystick_mode)
+        _espnow_joystick_sender();
+    else
+        _espnow_imu_sender();
 }
 
 
@@ -187,6 +239,7 @@ namespace App {
     {
         UI_LOG("[%s] onCreate\n", App_ESPNOW_appName().c_str());
 
+        _espnow_choose_sender_mode();
         _espnow_init();
         while (1) {
             _espnow_loop();
