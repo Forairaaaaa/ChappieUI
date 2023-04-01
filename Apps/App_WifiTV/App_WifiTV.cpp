@@ -9,6 +9,9 @@ static std::string app_name = "WifiTV";
 static CHAPPIE* device;
 
 
+LV_IMG_DECLARE(ui_img_icon_wifitv_png);
+
+
 static TCPReceiver* _recv;
 
 
@@ -16,7 +19,7 @@ static void _wifi_tv_init()
 {
     device->Lcd.fillScreen(TFT_BLACK);
     device->Lcd.setCursor(0, 30);
-    device->Lcd.setTextSize(2);
+    device->Lcd.setTextSize(1.5);
     device->Lcd.setTextColor(TFT_WHITE, TFT_BLACK);
 
     WiFi.mode(WIFI_AP_STA);
@@ -68,7 +71,8 @@ namespace App {
      */
     void* App_WifiTV_appIcon()
     {
-        return NULL;
+        // return NULL;
+        return (void*)&ui_img_icon_wifitv_png;
     }
 
 
@@ -83,7 +87,12 @@ namespace App {
         _wifi_tv_init();
         while (1) {
             _wifi_tv_update();
+            if (device->Button.B.pressed()) 
+                    break;
         }
+        lv_obj_t * label = lv_label_create(lv_scr_act());
+        lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+        lv_label_set_text(label, "Press B again to quit");
     }
 
 

@@ -10,6 +10,21 @@ static CHAPPIE* device;
 LV_IMG_DECLARE(ui_img_icon_espnow_png);
 
 
+static void _espnow_init()
+{
+
+
+}
+
+
+static void _espnow_loop()
+{
+
+
+}
+
+
+
 namespace App {
 
     /**
@@ -42,6 +57,13 @@ namespace App {
     void App_ESPNOW_onCreate()
     {
         UI_LOG("[%s] onCreate\n", App_ESPNOW_appName().c_str());
+
+        _espnow_init();
+        while (1) {
+            _espnow_loop();
+            if (device->Button.B.pressed())
+                break;
+        }
 
         lv_obj_t * label = lv_label_create(lv_scr_act());
         lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
