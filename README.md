@@ -29,13 +29,9 @@ ChappieUI/
 ├── ChappieUI.cpp
 ├── ChappieUI.h
 ├── Launcher
-│   ├── App_Launcher.cpp
-│   ├── App_Launcher.h
-│   └── UI
-├── LICENSE
-├── README.md
-└── Tools
-    └── SquareLineProjects
+    ├── App_Launcher.cpp
+    ├── App_Launcher.h
+    └── UI
 ```
 
 #### App结构
