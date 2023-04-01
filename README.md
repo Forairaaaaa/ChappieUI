@@ -41,15 +41,19 @@ ChappieUI/
 #### App结构
 
 ```c++
-/* 返回App图标地址 */
-void* App_Template_appIcon();
+/* App名字 */
+std::string App_Template_appName()
+
+/* App图标 */
+void* App_Template_appIcon()
 
 /* App创建回调 */
-void App_Template_onCreate()();
+void App_Template_onCreate()
 
 /* App循环回调 */
-void App_Template_onLoop();
+void App_Template_onLoop()
 
 /* App结束回调 */
-void App_Template_onDestroy();
+void App_Template_onDestroy()
 ```
+
