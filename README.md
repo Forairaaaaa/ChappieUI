@@ -42,18 +42,18 @@ ChappieUI/
 
 ```c++
 /* App名字 */
-App_Template_appName()
+std::string App_Template_appName();
 
 /* App图标 */
-App_Template_appIcon()
+void* App_Template_appIcon();
 
 /* App创建回调 */
-App_Template_onCreate()
+void App_Template_onCreate();
 
 /* App循环回调 */
-App_Template_onLoop()
+void App_Template_onLoop();
 
 /* App结束回调 */
-App_Template_onDestroy()
+void App_Template_onDestroy();
 ```
 
