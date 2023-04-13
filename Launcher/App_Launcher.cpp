@@ -220,15 +220,44 @@ namespace App {
     {
         CHAPPIE* device = (CHAPPIE*)timer->user_data;
         static char label_buffer[10];
-
+        static char date_buffer[30];
+        static char week1[6];
+        static char month[6];
         /* Update clock */
         static I2C_BM8563_TimeTypeDef rtc_time;
+        static I2C_BM8563_DateTypeDef rtc_date;
         device->Rtc.getTime(&rtc_time);
-
-        // snprintf(label_buffer, 10, "%d:%02d:%02d", rtc_time.hours, rtc_time.minutes, rtc_time.seconds);
+        device->Rtc.getDate(&rtc_date);
         snprintf(label_buffer, 10, "%d:%02d", rtc_time.hours, rtc_time.minutes);
+
+        uint8_t week_data = rtc_date.weekDay;
+        uint8_t month_data = rtc_date.month;
+        if(week_data == 1){snprintf(week1,3, "Mon");}
+        else if(week_data == 2){snprintf(week1,4, "Tue");}
+        else if(week_data == 3){snprintf(week1,4, "Wed");}
+        else if(week_data == 4){snprintf(week1,4, "Thu");}
+        else if(week_data == 5){snprintf(week1,4, "Fri");}
+        else if(week_data == 6){snprintf(week1,4, "Sat");}
+        else if(week_data == 7){snprintf(week1,4, "Sun");}
+        if(month_data == 1){snprintf(month,4, "Jan");}
+        else if(month_data == 2){snprintf(month,4, "Feb");}
+        else if(month_data == 3){snprintf(month,4, "Mar");}
+        else if(month_data == 4){snprintf(month,4, "Apr");}
+        else if(month_data == 5){snprintf(month,4, "May");}
+        else if(month_data == 6){snprintf(month,4, "Jun");}
+        else if(month_data == 7){snprintf(month,4, "Jul");}
+        else if(month_data == 8){snprintf(month,4, "Aug");}
+        else if(month_data == 9){snprintf(month,4, "Sep");}
+        else if(month_data == 10){snprintf(month,4, "Oct");}
+        else if(month_data == 11){snprintf(month,4, "Nov");}
+        else if(month_data == 12){snprintf(month,4, "Dec");}
+        snprintf(date_buffer,20,"%s,%s %d",week1,month,rtc_date.date);
+
         lv_label_set_text(ui_LabelHomeTime, label_buffer);
         lv_label_set_text(ui_LabelStateBarTime, label_buffer);
+
+        lv_label_set_text(ui_LabelStateBarTime1, date_buffer);
+
     }
 
 
