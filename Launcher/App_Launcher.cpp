@@ -232,13 +232,15 @@ namespace App {
 
         uint8_t week_data = rtc_date.weekDay;
         uint8_t month_data = rtc_date.month;
-        if(week_data == 1){snprintf(week1,4, "Mon");}
+        
+        if(week_data == 1){snprintf(week1,3, "Mon");}
         else if(week_data == 2){snprintf(week1,4, "Tue");}
         else if(week_data == 3){snprintf(week1,4, "Wed");}
         else if(week_data == 4){snprintf(week1,4, "Thu");}
         else if(week_data == 5){snprintf(week1,4, "Fri");}
         else if(week_data == 6){snprintf(week1,4, "Sat");}
-        else if(week_data == 0){snprintf(week1,4, "Sun");}
+        else if(week_data == 7){snprintf(week1,4, "Sun");}
+        
         if(month_data == 1){snprintf(month,4, "Jan");}
         else if(month_data == 2){snprintf(month,4, "Feb");}
         else if(month_data == 3){snprintf(month,4, "Mar");}
