@@ -233,7 +233,7 @@ namespace App {
         uint8_t week_data = rtc_date.weekDay;
         uint8_t month_data = rtc_date.month;
         
-        if(week_data == 1){snprintf(week1,3, "Mon");}
+        if(week_data == 1){snprintf(week1,4, "Mon");}
         else if(week_data == 2){snprintf(week1,4, "Tue");}
         else if(week_data == 3){snprintf(week1,4, "Wed");}
         else if(week_data == 4){snprintf(week1,4, "Thu");}
