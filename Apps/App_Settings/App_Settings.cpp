@@ -11,7 +11,6 @@ static CHAPPIE* device;
 
 LV_IMG_DECLARE(ui_img_icon_setting_png);
 
-
 static int extract_ints(char* str, int* nums, int max_count) {
     int len = strlen(str);
     int count = 0;
