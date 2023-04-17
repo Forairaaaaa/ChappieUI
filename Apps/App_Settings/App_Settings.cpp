@@ -4,9 +4,6 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-char SSID[] = "T";
-char PASSWORD[] = "66668888";
-
 
 HTTPClient http;
 static I2C_BM8563_TimeTypeDef rtc_time;
@@ -37,15 +34,47 @@ static void xTaskOne(void *xTask1)
 {
     while (1)
     {
-        uint8_t i;
-        WiFi.begin(SSID, PASSWORD);
+        uint8_t i = 0;
+        WiFi.mode(WIFI_AP_STA);
+        WiFi.begin();
         while (WiFi.status() != WL_CONNECTED)
 	    { //这里是阻塞程序，直到连接成功
             vTaskDelay(100);
             i++;  
-            if(i == 150)
+            if(i == 100)
             {
-                vTaskDelete(NULL);//等待15秒，若未连接，则注销线程
+                //vTaskDelete(NULL);
+                break;//等待10秒，若未连接，则退出直接联网，执行配网
+            }
+        }
+        i = 0;
+        if(WiFi.status() != WL_CONNECTED)
+        {       
+            WiFi.beginSmartConfig();
+        }
+        if(WiFi.status() != WL_CONNECTED)
+        {
+            while (!WiFi.smartConfigDone()) 
+            { 
+                delay(500);
+                i++;  
+                if(i == 200)
+                {
+                    WiFi.disconnect();
+                    vTaskDelete(NULL);//等待100秒，若仍未配网，则注销线程
+                }
+            }
+            i = 0;
+            vTaskDelay(100);
+            while (WiFi.status() != WL_CONNECTED) 
+            { 
+                vTaskDelay(100);
+                i++;  
+                if(i == 100)
+                {
+                    WiFi.disconnect();
+                    vTaskDelete(NULL);
+                } 
             }
         }
     	http.begin("http://quan.suning.com/getSysTime.do"); //HTTP begin
