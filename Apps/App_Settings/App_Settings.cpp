@@ -2,6 +2,8 @@
 #include "App_Settings.h"
 #include "../../../ChappieBsp/Chappie.h"
 #include <WiFi.h>
+#include <HTTPClient.h>
+
 
 HTTPClient http;
 static I2C_BM8563_TimeTypeDef rtc_time;
@@ -10,6 +12,7 @@ static std::string app_name = "Settings";
 static CHAPPIE* device;
 
 LV_IMG_DECLARE(ui_img_icon_setting_png);
+
 
 static int extract_ints(char* str, int* nums, int max_count) {
     int len = strlen(str);
@@ -41,7 +44,7 @@ static void xTaskOne(void *xTask1)
             if(i == 100)
             {
                 //vTaskDelete(NULL);
-                break;//等待10秒，若未连接，则退出直接联网，执行配网
+                break;//等待10秒，若未连接，则退出联网
             }
         }
         i = 0;
@@ -58,7 +61,7 @@ static void xTaskOne(void *xTask1)
                 if(i == 200)
                 {
                     WiFi.disconnect();
-                    vTaskDelete(NULL);//等待100秒，若仍未配网，则注销线程
+                    vTaskDelete(NULL);//等待25秒，若仍未配网，则注销线程
                 }
             }
             i = 0;
@@ -206,3 +209,5 @@ namespace App {
 }
 
 #endif
+
+
