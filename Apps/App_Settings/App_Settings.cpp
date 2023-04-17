@@ -3,7 +3,8 @@
 #include "../../../ChappieBsp/Chappie.h"
 #include <WiFi.h>
 #include <HTTPClient.h>
-
+const char* ssid     = "yourssid";
+const char* password = "yourpasswd";
 
 HTTPClient http;
 static I2C_BM8563_TimeTypeDef rtc_time;
@@ -36,7 +37,7 @@ static void xTaskOne(void *xTask1)
     {
         uint8_t i = 0;
         WiFi.mode(WIFI_AP_STA);
-        WiFi.begin();
+        WiFi.begin(ssid, password);
         while (WiFi.status() != WL_CONNECTED)
 	    { //这里是阻塞程序，直到连接成功
             vTaskDelay(100);
